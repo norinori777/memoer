@@ -1,0 +1,49 @@
+{
+  "name": "memoer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify --debug public/jsx/InputLine.js > public/jsx/bundle2.js",
+    "watch": "watchify --debug public/jsx/InputLine.js -o public/jsx/bundle2.js",
+    "build-dist": "NODE_ENV=production browserify hello.js | uglifyjs -m > bundle_mini.js",
+    "test": "./node_modules/.bin/karma start \"C:\\Users\\Terunori Kawai\\Documents\\memoer\\karma.conf.js\""
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "norinori777"
+  },
+  "author": "norinori777",
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "^1.2.1",
+    "basic-auth": "^1.0.3",
+    "body-parser": "^1.13.1",
+    "browserify": "^10.2.6",
+    "connect": "^3.4.0",
+    "express": "^4.13.0",
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "jasmine": "^2.3.1",
+    "jquery": "^2.1.4",
+    "karma": "^0.12.37",
+    "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "mongodb": "^2.0.35",
+    "morgan": "^1.6.1",
+    "multer": "^0.1.8",
+    "react": "^0.13.3",
+    "rewireify": "^0.2.1"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.4.23",
+    "watchify": "^3.2.3"
+  }
+}

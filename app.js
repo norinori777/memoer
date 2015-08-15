@@ -14,7 +14,7 @@ app.use(parser.json());
 app.use(function(req, res, next) {
 	var user = auth(req);
 
-	if (user === undefined || user['name'] !== 'nori' || user['pass'] !== 'cz812ce') {
+	if (user === undefined || user['name'] !== 'test' || user['pass'] !== 'test') {
 		res.statusCode =401;
 		res.setHeader('www-Authenticate', 'Basic realm="MyRealmName"');
 		res.end('Unauthorized');
