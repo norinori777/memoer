@@ -5,37 +5,43 @@
 */}
 
 window.React = require('react');
-var React = require('react');
+var React = require('react/addons');
 var ContentEditable = require('./ContentEditable.js');
 
 var InputLine = React.createClass({
 	propTypes:{
-		number: React.PropTypes.number.isRequired,
 		allowEnter: React.PropTypes.bool.isRequired,
-		placeholder: React.PropTypes.string.isRequired
 	},
 	getDefaultProps: function(){
 		return{
-			placeholder: 'メモの内容を入力してください',
+			num: "1",
+			line:'memo__line',
+			no: 'memo__no',
 			allowEnter: true			
 		}
 	},
 	getInitialState: function(){
 		return{
-			number: 1,
 			article: ''
 		}
 	},
 	render: function(){
+		var cx = React.addons.classSet;
+		var classes = cx({
+			'memo__contentFont': true,
+			'dropover': this.state.isDropover
+		});
 		return(
-			<div>
-				<label>{this.state.number}</label>
-				<ContentEditable allowEnter={this.props.allowEnter} data-placeholder={this.props.placeholder} />
+			<div className={this.props.line}>
+				<label className={this.props.no}>{this.props.num}：</label>
+				<ContentEditable
+					classes={classes}
+					fontType={this.props.memo__contentFont}
+					allowEnter={this.props.allowEnter}
+					placeholder={'メモの内容を入力してください'} />
 			</div>
 		);
 	}
 });
-
-React.render(<InputLine></InputLine>,document.body)
 
 module.exports = InputLine;

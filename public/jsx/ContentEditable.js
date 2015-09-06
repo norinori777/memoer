@@ -7,23 +7,24 @@
 */}
 
 window.React = require('react');
-var React = require('react');
+var React = require('react/addons');
 
 var ContentEditable = React.createClass({
 	propTypes:{
-	 	placeholder: React.PropTypes.string.isRequired
+	 	placeholder: React.PropTypes.string.isRequired,
+	 	classes: React.PropTypes.func.isRequired
 	},
 	getDefaultProps: function(){
 		return {
 			placeholder: 'メモの題名を入力してください',
-			allowEnter: false,
-			fontType: 'Normal__font'
+			allowEnter: false
 		}
 	},
 	getInitialState: function(){
 		return{
 			Value: '',
-			isShowDefaultValue: true
+			isShowDefaultValue: true,
+			isDropover: false
 		};
 	},
 	getDefaultValue: function(){
@@ -74,10 +75,10 @@ var ContentEditable = React.createClass({
     	}
 	},
 	showDropping: function(e){
-		e.target.classList.add('dropover');
+		this.setState({isDropover:true});
 	},
 	hideDropping: function(e){
-		e.target.classList.remove('dropover');
+		this.setState({isDropover:false});
 	},
 	showFiles: function(files){
 
@@ -85,8 +86,8 @@ var ContentEditable = React.createClass({
 	render: function(){
 		var self = this;
 		return (
-			<div contentEditable 
-				className={this.props.fontType}
+			<div contentEditable
+				className={this.props.classes}
 				effectAllowed="move"
 				data-placeholder={this.getDefaultValue()} 
 				onInput={this.handleChange.bind(self)}

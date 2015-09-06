@@ -1,4 +1,4 @@
-.Normal__font{
+.memo__titleFont{
 	color: #2dbe60;
 	line-height: 32px;
 	font-size: 28px;
@@ -9,6 +9,21 @@
 	white-space: nowrap;
 }
 
+.memo__contentFont{
+	color: #242A26;
+	line-height: 32px;
+	font-size: 28px;
+	font-weight: 300;
+	outline: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 10px;
+/*
+	float:left;
+	width:100%;*/
+}
+
 [data-placeholder]::before {
 	content: attr(data-placeholder);
 	opacity: 0.5;
@@ -17,4 +32,24 @@
 .dropover{
 	background-color: #cff;
 	color: #9cc;
+}
+
+.memo__line{
+	content:'';
+	display:block;
+	clear:both;
+}
+
+.memo__no{
+	color: #242A26;
+	font-size:28px;
+	font-family: gotham, helvetica, arial, sans-serif;
+	line-height:32px;
+	float: left;
+	margin-bottom: 10px;
+}
+
+.memo__content{
+	float:left;
+	width:100%;
 }

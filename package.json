@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify --debug public/jsx/InputLine.js > public/jsx/bundle2.js",
-    "watch": "watchify --debug public/jsx/InputLine.js -o public/jsx/bundle2.js",
+    "build": "browserify --debug public/jsx/InputMultiLine.js > public/jsx/bundle2.js",
+    "watch": "watchify --debug public/jsx/InputMultiLine.js -o public/jsx/bundle2.js",
     "build-dist": "NODE_ENV=production browserify hello.js | uglifyjs -m > bundle_mini.js",
-    "test": "./node_modules/.bin/karma start \"C:\\Users\\Terunori Kawai\\Documents\\memoer\\karma.conf.js\""
+    "test": "./node_modules/.bin/karma start \"C:\\Users\\Terunori Kawai\\Documents\\dev-memoer\\memoer\\karma.conf.js\""
   },
   "browserify": {
     "transform": [
@@ -37,11 +37,16 @@
     "mongodb": "^2.0.35",
     "morgan": "^1.6.1",
     "multer": "^0.1.8",
+    "object-assign": "^4.0.1",
     "react": "^0.13.3",
+    "react-classset": "0.0.2",
     "rewireify": "^0.2.1"
   },
   "devDependencies": {
     "browserify": "^10.2.4",
+    "jasmine-core": "^2.3.4",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
     "reactify": "^1.1.1",
     "uglify-js": "^2.4.23",
     "watchify": "^3.2.3"
