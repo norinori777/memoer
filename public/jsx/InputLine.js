@@ -10,7 +10,7 @@ var ContentEditable = require('./ContentEditable.js');
 
 var InputLine = React.createClass({
 	propTypes:{
-		allowEnter: React.PropTypes.bool.isRequired,
+		allowEnter: React.PropTypes.bool.isRequired
 	},
 	getDefaultProps: function(){
 		return{
@@ -22,8 +22,13 @@ var InputLine = React.createClass({
 	},
 	getInitialState: function(){
 		return{
-			article: ''
+			inputVlue: ''
 		}
+	},
+	handleChange: function(event){
+		this.setState({
+			inputValue: event.target.firstChild
+		})
 	},
 	render: function(){
 		var cx = React.addons.classSet;
@@ -36,9 +41,12 @@ var InputLine = React.createClass({
 				<label className={this.props.no}>{this.props.num}：</label>
 				<ContentEditable
 					classes={classes}
+					addLine={this.props.addLine}
+					onChange={this.handleChange}
 					fontType={this.props.memo__contentFont}
 					allowEnter={this.props.allowEnter}
-					placeholder={'メモの内容を入力してください'} />
+					placeholder={'メモの内容を入力してください'}
+					inputValue={this.state.inputValue} />
 			</div>
 		);
 	}

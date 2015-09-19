@@ -5,31 +5,34 @@
 window.React = require('react');
 var React = require('react/addons');
 var InputLine = require('./InputLine.js');
+var CurrentTime = require('./CurrentTime.js');
 
-var InputMultiLine = React.createClass({
+var InputMultiLines = React.createClass({
 	propTypes:{
 		allowLines: React.PropTypes.number.isRequired
 	},
-	getDefaultProps: function(){
+	getInitialState: function(){
 		return{
-			allowLines: 4
+			allowLines: this.props.allowLines
 		}
+	},
+	handleAdd: function(event){
+		this.setState({allowLines: this.state.allowLines+1});
 	},
 	renderLine: function(number){
 		var lines = [];
 		for(var i=0; i < number; i++){
-			lines.push(<InputLine num={i+1}></InputLine>)
+			if(i+1 == number){
+				lines.push(<InputLine num={i+1} addLine={this.handleAdd}></InputLine>);
+			}else{
+				lines.push(<InputLine num={i+1}></InputLine>);
+			}
 		}
 		return lines;
 	},
 	render: function(){
-		return (
-			<div>
-				{this.renderLine(this.props.allowLines)}
-			</div>
-		);
+		return <div>{this.renderLine(this.state.allowLines)}</div>
 	}
 });
 
-React.render(<InputMultiLine></InputMultiLine>,document.body);
-module.exports = InuputMultiLine;
+module.exports = InputMultiLines;

@@ -12,7 +12,8 @@ var React = require('react/addons');
 var ContentEditable = React.createClass({
 	propTypes:{
 	 	placeholder: React.PropTypes.string.isRequired,
-	 	classes: React.PropTypes.func.isRequired
+	 	classes: React.PropTypes.func.isRequired,
+	 	onChange: React.PropTypes.func
 	},
 	getDefaultProps: function(){
 		return {
@@ -22,7 +23,7 @@ var ContentEditable = React.createClass({
 	},
 	getInitialState: function(){
 		return{
-			Value: '',
+			inputValue: this.props.inputValue,
 			isShowDefaultValue: true,
 			isDropover: false
 		};
@@ -36,13 +37,21 @@ var ContentEditable = React.createClass({
 				isShowDefaultValue: true
 			});
 		}　else　{
+			if(this.props.onChange){
+				this.props.onChange(e);
+			}
 			this.setState({
 				isShowDefaultValue: false,
-				Value: e.target.firstChild
+				inputValue: e.target.firstChild
 			});
 		}
 	},
-	cancelEnter: function(e){
+	keyDown: function(e){
+		if(this.props.addLine!==undefined){
+			if((e.which && e.which === 9) || (e.keyCode && e.keyCode === 9)){
+				this.props.addLine();
+			}						
+		}
 		if(!this.props.allowEnter){
 			if((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)){
 				return false;
@@ -91,12 +100,13 @@ var ContentEditable = React.createClass({
 				effectAllowed="move"
 				data-placeholder={this.getDefaultValue()} 
 				onInput={this.handleChange.bind(self)}
-				onKeyDown={this.cancelEnter.bind(self)}
+				onKeyDown={this.keyDown.bind(self)}
 				onDragOver={this.handleDragOver}
 				onDragEnter={this.handleDragEnter}
 				onDragLeave={this.handleDragLeave}
-				onDrop={this.handleDrop}>
-				{this.state.titleValue}
+				onDrop={this.handleDrop}
+				onChange={this.props.onChange}>
+				{this.props.inputValue}
 			</div>
 		);
 	}

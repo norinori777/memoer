@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify --debug public/jsx/InputMultiLine.js > public/jsx/bundle2.js",
-    "watch": "watchify --debug public/jsx/InputMultiLine.js -o public/jsx/bundle2.js",
+    "build": "browserify --debug public/jsx/memoer.js > public/jsx/bundle2.js",
+    "watch": "watchify --debug public/jsx/memoer.js -o public/jsx/bundle2.js",
     "build-dist": "NODE_ENV=production browserify hello.js | uglifyjs -m > bundle_mini.js",
     "test": "./node_modules/.bin/karma start \"C:\\Users\\Terunori Kawai\\Documents\\dev-memoer\\memoer\\karma.conf.js\""
   },

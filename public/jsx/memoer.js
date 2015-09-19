@@ -12,7 +12,7 @@ var CurrentTime = require('./CurrentTime.js');
 var classes = cx({
 	'memo__titleFont': true
 });
-var allowLines = 4;
+var allowLines = 1;
 
 React.render(<ContentEditable classes={classes}></ContentEditable>, document.getElementById('title'));
 React.render(<CurrentTime></CurrentTime>, document.getElementById('time'));
