@@ -8,12 +8,16 @@
 
 window.React = require('react');
 var React = require('react/addons');
+var Fluxxor = require('fluxxor');
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var ContentEditable = React.createClass({
+	mixins: [FluxMixin],
+
 	propTypes:{
 	 	placeholder: React.PropTypes.string.isRequired,
 	 	classes: React.PropTypes.func.isRequired,
-	 	onChange: React.PropTypes.func
+	 	no: React.PropTypes.number.isRequired
 	},
 	getDefaultProps: function(){
 		return {
@@ -31,25 +35,32 @@ var ContentEditable = React.createClass({
 	getDefaultValue: function(){
 		return this.state.isShowDefaultValue ? this.props.placeholder : '';
 	},
+
+	// Actionでデータを保存する、Storeに保存
 	handleChange: function(e){
-		if(e.target.firstChild == null){
-			this.setState({
-				isShowDefaultValue: true
+		if(e.target.firstChild === null){
+			this.setState({isShowDefaultValue: true});
+		}else{
+			this.setState({isShowDefaultValue: false});
+		}
+		if(this.props.role === 'memo'){
+			return this.getFlux().actions.updateMemo({
+				no: this.props.no,
+				value: e.target.firstChild.textContent.toString()
 			});
-		}　else　{
-			if(this.props.onChange){
-				this.props.onChange(e);
-			}
-			this.setState({
-				isShowDefaultValue: false,
-				inputValue: e.target.firstChild
+		}
+		if(this.props.role === 'title'){
+			return this.getFlux().actions.updateTitle({
+				value: e.target.firstChild.textContent.toString()
 			});
 		}
 	},
+
+	// Actionで行数を増やし、Storeに保存
 	keyDown: function(e){
 		if(this.props.addLine!==undefined){
 			if((e.which && e.which === 9) || (e.keyCode && e.keyCode === 9)){
-				this.props.addLine();
+				this.props.addLine(this.props.no);
 			}						
 		}
 		if(!this.props.allowEnter){
@@ -99,13 +110,12 @@ var ContentEditable = React.createClass({
 				className={this.props.classes}
 				effectAllowed="move"
 				data-placeholder={this.getDefaultValue()} 
-				onInput={this.handleChange.bind(self)}
+				onInput={this.handleChange}
 				onKeyDown={this.keyDown.bind(self)}
 				onDragOver={this.handleDragOver}
 				onDragEnter={this.handleDragEnter}
 				onDragLeave={this.handleDragLeave}
-				onDrop={this.handleDrop}
-				onChange={this.props.onChange}>
+				onDrop={this.handleDrop} >
 				{this.props.inputValue}
 			</div>
 		);

@@ -14,21 +14,16 @@ var InputLine = React.createClass({
 	},
 	getDefaultProps: function(){
 		return{
-			num: "1",
 			line:'memo__line',
 			no: 'memo__no',
-			allowEnter: true			
+			allowEnter: true,
+			inputValue: ''			
 		}
 	},
 	getInitialState: function(){
 		return{
-			inputVlue: ''
+			inputVlue: this.props.inputValue
 		}
-	},
-	handleChange: function(event){
-		this.setState({
-			inputValue: event.target.firstChild
-		})
 	},
 	render: function(){
 		var cx = React.addons.classSet;
@@ -38,15 +33,16 @@ var InputLine = React.createClass({
 		});
 		return(
 			<div className={this.props.line}>
-				<label className={this.props.no}>{this.props.num}：</label>
+				<label className={this.props.no}>{this.props.value.no}：</label>
 				<ContentEditable
+					role={'memo'}
 					classes={classes}
 					addLine={this.props.addLine}
-					onChange={this.handleChange}
+					no={this.props.value.no}
 					fontType={this.props.memo__contentFont}
 					allowEnter={this.props.allowEnter}
 					placeholder={'メモの内容を入力してください'}
-					inputValue={this.state.inputValue} />
+					inputValue={this.props.value.value} />
 			</div>
 		);
 	}

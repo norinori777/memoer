@@ -21,12 +21,14 @@
   "author": "norinori777",
   "license": "MIT",
   "dependencies": {
-    "backbone": "^1.2.1",
+    "backbone": "^1.2.3",
     "basic-auth": "^1.0.3",
     "body-parser": "^1.13.1",
+    "bootstrap": "^3.3.5",
     "browserify": "^10.2.6",
     "connect": "^3.4.0",
     "express": "^4.13.0",
+    "fluxxor": "^1.7.3",
     "fs": "0.0.2",
     "http": "0.0.0",
     "jasmine": "^2.3.1",
@@ -38,6 +40,7 @@
     "morgan": "^1.6.1",
     "multer": "^0.1.8",
     "object-assign": "^4.0.1",
+    "parallelshell": "^2.0.0",
     "react": "^0.13.3",
     "react-classset": "0.0.2",
     "rewireify": "^0.2.1"

@@ -1,37 +1,39 @@
 {/*
 	・propsで指定した数分、複数の入力項目を表示すること。
-	・追加で表示するインターフェースを設けること。
+	・末尾の入力項目には、項目を追加するインターフェースを設けること。
 */}
 window.React = require('react');
 var React = require('react/addons');
+var Fluxxor = require('fluxxor');
 var InputLine = require('./InputLine.js');
-var CurrentTime = require('./CurrentTime.js');
+var FluxMixin = Fluxxor.FluxMixin(React);
 
 var InputMultiLines = React.createClass({
+	mixins: [FluxMixin],
 	propTypes:{
-		allowLines: React.PropTypes.number.isRequired
+		data: React.PropTypes.object.isRequired
 	},
-	getInitialState: function(){
-		return{
-			allowLines: this.props.allowLines
-		}
+	handleAdd: function(no){
+		this.getFlux().actions.updateMemo({
+				isShowDefaultValue: true,
+				no: no + 1,
+				value: ""
+		});
+
 	},
-	handleAdd: function(event){
-		this.setState({allowLines: this.state.allowLines+1});
-	},
-	renderLine: function(number){
-		var lines = [];
-		for(var i=0; i < number; i++){
-			if(i+1 == number){
-				lines.push(<InputLine num={i+1} addLine={this.handleAdd}></InputLine>);
+	renderLine: function(values){
+		var lines=[], i;
+		for(i=0; i < values.length; i++){
+			if(i+1 == values.length){
+				lines.push(<InputLine value={values[i]} addLine={this.handleAdd} />);
 			}else{
-				lines.push(<InputLine num={i+1}></InputLine>);
+				lines.push(<InputLine value={values[i]} />);
 			}
 		}
 		return lines;
 	},
 	render: function(){
-		return <div>{this.renderLine(this.state.allowLines)}</div>
+		return <div>{this.renderLine(this.props.data)}</div>;
 	}
 });
 
