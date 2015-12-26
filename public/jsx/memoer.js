@@ -5,6 +5,7 @@
 Window.React = require('react');
 var React = require('react/addons');
 var Fluxxor = require('fluxxor');
+var ContentEditableLine = require('./ContentEditableLine.js');
 var ContentEditable = require('./ContentEditable.js');
 var InputLine = require('./InputLine.js');
 var InputMultiLines = require('./InputMultiLine.js');
