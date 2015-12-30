@@ -78,7 +78,7 @@ var ContentEditable = React.createClass({
 				this.props.addLine(this.props.no);
 			}
 			if((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)){
-				enter_flg = 1;
+				this.enter_flg = 1;
 			}							
 		}
 	},
@@ -162,7 +162,7 @@ var ContentEditable = React.createClass({
 			var base, start, end;
 
 			if(sel.baseNode.nodeName === "DIV"){
-				if(sel.baseOffset === 0 && enter_flg === 0){
+				if(sel.baseOffset === 0 && this.enter_flg === 0){
 					base = sel.baseNode.childNodes[0];
 					if(sel.baseNode.childNodes[0].nodeName === "BR"){
 						start = 0;
@@ -176,7 +176,7 @@ var ContentEditable = React.createClass({
 					start = sel.baseOffset;
 					end = sel.baseOffset;
 				}
-				if(enter_flg === 1){
+				if(this.enter_flg === 1){
 					start = start + 1;
 					end = end + 1;
 					enter_flg = 0;
