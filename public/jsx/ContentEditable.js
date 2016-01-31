@@ -53,7 +53,7 @@ var ContentEditable = React.createClass({
 			var i, values = [];
 			for(i = 0; i < e.target.childNodes.length; i++){
 				if(e.target.childNodes[i].textContent === ""){
-					values.push("[<BR>]");
+					/*values.push("[<BR>]");*/
 				}else{
 					values.push(e.target.childNodes[i].textContent);
 				}
@@ -80,6 +80,36 @@ var ContentEditable = React.createClass({
 			if((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)){
 				this.enter_flg = 1;
 			}							
+		}
+	},
+	memoFocus: function(e){
+		var values = [];
+		if(this.props.role === "memo"){
+			if(e.target.childNodes.length === 1 && e.target.childNodes[0].textContent === ""){
+				this.setState({isShowDefaultValue: false});
+				values.push('　');
+				return this.getFlux().actions.updateMemo({
+					no: this.props.no,
+					value: values
+				});
+			}
+			if(e.target.childNodes.length === 1 && e.target.childNodes[0].textContent === "　"){
+				var range = document.createRange();
+				var sel = getSelection();
+				var base, start, end;
+
+				start = e.target.childNodes[0].textContent.length;
+				end = e.target.childNodes[0].textContent.length;
+				base = e.target.childNodes[0];
+
+				range.setStart(base,start);
+				range.setEnd(base,end);
+				sel.removeAllRanges();
+				sel.addRange(range);
+
+				range.collapse(false);
+
+			}
 		}
 	},
 	handleDragOver: function(e){
@@ -120,7 +150,9 @@ var ContentEditable = React.createClass({
 	},
 	renderTmp: function(values){
 		var i,lines = [];
-
+		if(values.length === 0){
+			lines.push(<ContentEditableLine></ContentEditableLine>);
+		}
 		for(i=0; i < values.length; i++){
 			lines.push(<ContentEditableLine data={values[i]}></ContentEditableLine>);
 		}
@@ -200,6 +232,7 @@ var ContentEditable = React.createClass({
 					effectAllowed="move"
 					data-placeholder={this.getDefaultValue()} 
 					onInput={this.handleChange}
+					onFocus={this.memoFocus}
 					onKeyDown={this.keyDown.bind(self)}
 					onDragOver={this.handleDragOver}
 					onDragEnter={this.handleDragEnter}
