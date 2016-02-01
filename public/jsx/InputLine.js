@@ -1,7 +1,5 @@
 {/*
 	・項目番号と入力ボックスを1行で表示する
-	・
-
 */}
 
 window.React = require('react');
